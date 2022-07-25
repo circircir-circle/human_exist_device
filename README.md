@@ -47,11 +47,11 @@
 
 2. 适当剪短GL5528的引脚后, 用导线连接其中一个引脚和开发板上的IO02引脚, 再用另一根导线连接GL5528的另一个引脚和开发板上的GND(GL5528的两个引脚是无极性的, 随便焊)
 
-   ![image-20220723184137614](D:\a1_sp\d_study\arduino\a_人体存在传感器\assets\image-20220723184137614.png)
+   ![image-20220723184137614](https://github.com/circircir-circle/human_exist_device/blob/main/assets/image-20220723184137614.png)
 
 3. 注意LD2410的引脚顺序如下:
 
-   <img src="D:\a1_sp\d_study\arduino\a_人体存在传感器\assets\image-20220723184403998.png" alt="image-20220723184403998" style="zoom:50%;" />
+   <img src="https://github.com/circircir-circle/human_exist_device/blob/main/assets/image-20220723184403998.png" alt="image-20220723184403998" style="zoom:50%;" />
 
    将您购买到的5pin 1.27连接线插入雷达模块, 然后按照下面连线表将LD2410和ESP32开发板连接起来
 
@@ -101,7 +101,7 @@
 
 首先, 我们认识一下界面:
 
-![image-20220725201055766](D:\a1_sp\d_study\arduino\a_人体存在传感器\assets\image-20220725201055766.png)
+![image-20220725201055766](https://github.com/circircir-circle/human_exist_device/blob/main/assets/image-20220725201055766.png)
 
 
 
