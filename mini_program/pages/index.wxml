@@ -1,0 +1,91 @@
+<view class="container ">   
+ <rich-text nodes="{{text}}" class="   diygw-col-24  text-clz  diygw-text-lg"></rich-text>   
+ <view class="flex   flex-wrap diygw-col-24  flex-direction-column  flex-clz">   
+  <rich-text nodes="{{text1}}" class="   diygw-col-24  text1-clz "></rich-text>   
+  <view class="diygw-form-item   diygw-col-24  input5-clz  "> 
+   <view class="input"> 
+    <input class="flex1" name="input5" comfirm-type="done" type="text" value="{{input5}}" data-key="input5" bindchange="changeValue" bindinput="wifi_ssid_input" placeholder="你wifi的ssid" />  
+   </view> 
+  </view>   
+  <rich-text nodes="{{text6}}" class="   diygw-col-24  text6-clz "></rich-text>   
+  <view class="diygw-form-item   diygw-col-24  input4-clz  "> 
+   <view class="input"> 
+    <input class="flex1" name="input4" comfirm-type="done" type="text" value="{{input4}}" data-key="input4" bindchange="changeValue" bindinput="wifi_pwd_input" placeholder="你wifi的密码" /> 
+   </view> 
+  </view>  
+  <view class="flex diygw-col-24  line-clz"> 
+   <view class="diygw-pzx" style="border-bottom:1px solid #eee"></view> 
+  </view>   
+  <rich-text nodes="{{text5}}" class="   diygw-col-24  text5-clz "></rich-text>   
+  <view class="diygw-form-item   diygw-col-24  input-clz  "> 
+   <view class="input"> 
+    <input class="flex1" name="input" comfirm-type="done" type="text" value="{{input}}" data-key="input" bindchange="changeValue" bindinput="mqtt_site_input" placeholder="MQTT服务器地址" /> 
+   </view> 
+  </view>   
+  <rich-text nodes="{{text4}}" class="   diygw-col-24  text4-clz "></rich-text>   
+  <view class="diygw-form-item   diygw-col-24  input3-clz  "> 
+   <view class="input"> 
+    <input class="flex1" name="input3" comfirm-type="done" type="text" value="{{input3}}" data-key="input3" bindchange="changeValue" bindinput="mqtt_port_input" placeholder="MQTT服务器端口, 通常为1883" /> 
+   </view> 
+  </view>   
+  <rich-text nodes="{{text3}}" class="   diygw-col-24  text3-clz "></rich-text>   
+  <view class="diygw-form-item   diygw-col-24  input2-clz  "> 
+   <view class="input"> 
+    <input class="flex1" name="input2" comfirm-type="done" type="text" value="{{input2}}" data-key="input2" bindchange="changeValue" bindinput="mqtt_account_input" placeholder="MQTT服务器账号" /> 
+   </view> 
+  </view>   
+  <rich-text nodes="{{text2}}" class="   diygw-col-24  text2-clz "></rich-text>   
+  <view class="diygw-form-item   diygw-col-24  input1-clz  "> 
+   <view class="input"> 
+    <input class="flex1" name="input1" comfirm-type="done" type="text" value="{{input1}}" data-key="input1" bindchange="changeValue" bindinput="mqtt_pwd_input" placeholder="MQTT服务器密码" /> 
+   </view> 
+  </view>  
+  <view class="flex diygw-col-24  justify-end"> 
+   <button bindtap="read_wifi_setting"   class="diygw-btn green     flex1 margin-xs  button-button-clz"> 读取设置 </button> 
+   <button bindtap="write_wifi_setting"   class="diygw-btn green     flex1 margin-xs  button-button-clz"> 写入设置 </button> 
+  </view>   
+  <view wx:if="{{ble_state_page==1}}" class="   diygw-col-24  text7-clz ">蓝牙: 已连接  {{ble_name_page}}</view>
+  <view wx:else="{{ble_state_page==1}}" class="   diygw-col-24  text9-clz ">蓝牙: 未连接</view>
+  <rich-text wx:if="{{wifi_state_page==1}}" nodes="{{text7}}" class="   diygw-col-24  text7-clz "></rich-text>  
+  <rich-text wx:else="{{wifi_state_page==1}}" nodes="{{text9}}" class="   diygw-col-24  text9-clz "></rich-text>   
+  <rich-text wx:if="{{mqtt_state_page==1}}" nodes="{{text8}}" class="   diygw-col-24  text8-clz "></rich-text>   
+  <rich-text wx:else="{{mqtt_state_page==1}}" nodes="{{text10}}" class="   diygw-col-24  text10-clz "></rich-text> 
+  <view >蓝牙已接收  {{ble_recvbuf_page}}</view>
+  <rich-text nodes="{{text11}}" class="   diygw-col-24  text10-clz "></rich-text> 
+  <rich-text nodes="{{text11}}" class="   diygw-col-24  text10-clz "></rich-text> 
+  <rich-text nodes="{{text11}}" class="   diygw-col-24  text10-clz "></rich-text> 
+  <rich-text nodes="{{text11}}" class="   diygw-col-24  text10-clz "></rich-text> 
+  <rich-text nodes="{{text11}}" class="   diygw-col-24  text10-clz "></rich-text> 
+  <rich-text nodes="{{text11}}" class="   diygw-col-24  text10-clz "></rich-text> 
+  
+ </view>  
+ <view class="flex diygw-col-24  diygw-bottom"> 
+  <view class="diygw-grid diygw-actions"> 
+   <button catchtap="navigateTo" data-type="page" data-url="/pages/index" class="diygw-action      " > 
+    <view class="diygw-grid-inner "> 
+     <view class="diygw-grid-icon diygw-avatar  diy-icon-subscription" > 
+     </view> 
+     <view class="diygw-grid-title  ">
+      配网
+     </view> 
+    </view> </button> 
+   <button catchtap="navigateTo" data-type="page" data-url="/pages/index/monitor" class="diygw-action      " > 
+    <view class="diygw-grid-inner "> 
+     <view class="diygw-grid-icon diygw-avatar  diy-icon-rank" > 
+     </view> 
+     <view class="diygw-grid-title  ">
+      监控
+     </view> 
+    </view> </button> 
+   <button catchtap="navigateTo" data-type="page" data-url="/pages/index/edit_param" class="diygw-action      " > 
+    <view class="diygw-grid-inner "> 
+     <view class="diygw-grid-icon diygw-avatar  diy-icon-all" > 
+     </view> 
+     <view class="diygw-grid-title  ">
+      设置
+     </view> 
+    </view> </button> 
+  </view> 
+ </view> 
+ 
+</view>

@@ -1,0 +1,7 @@
+{
+	"navigationBarTitleText": "监控",
+  "navigationBarBackgroundColor": "#07c160",
+	"usingComponents": {
+    "ec-canvas": "../../components/ec-canvas/ec-canvas"
+	}
+}

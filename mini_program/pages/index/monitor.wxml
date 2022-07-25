@@ -1,0 +1,48 @@
+<view class="container">
+	<view class="flex diygw-col-24 diygw-bottom">
+		<view class="diygw-grid diygw-actions">
+			<button catchtap="navigateTo" data-type="page" data-url="/pages/index" class="diygw-action">
+				<view class="diygw-grid-inner">
+					<view class="diygw-grid-icon diygw-avatar diy-icon-subscription"> </view>
+					<view class="diygw-grid-title"> 配网 </view>
+				</view>
+			</button>
+			<button catchtap="navigateTo" data-type="page" data-url="/pages/index/monitor" class="diygw-action">
+				<view class="diygw-grid-inner">
+					<view class="diygw-grid-icon diygw-avatar diy-icon-rank"> </view>
+					<view class="diygw-grid-title"> 监控 </view>
+				</view>
+			</button>
+			<button catchtap="navigateTo" data-type="page" data-url="/pages/index/edit_param" class="diygw-action">
+				<view class="diygw-grid-inner">
+					<view class="diygw-grid-icon diygw-avatar diy-icon-all"> </view>
+					<view class="diygw-grid-title"> 设置 </view>
+				</view>
+			</button>
+		</view>
+	</view>
+  <!-- <button bindtap="test_test"   class="diygw-btn green     flex1 margin-xs  button-button-clz"> 测试按钮 </button>  -->
+  <view>长按阈值点可拖动设置阈值</view>
+	<view class="flex flex-wrap diygw-col-24 flex-direction-column flex-clz">
+		<rich-text nodes="{{text}}" class="diygw-col-24 text-clz diygw-text-lg"></rich-text>
+	</view>
+	<view class="flex flex-wrap diygw-col-24 flex-direction-column flex1-clz">
+		<rich-text wx:if="{{globalData.wifi_state_page==1}}" nodes="{{text7}}" class="diygw-col-24 text7-clz"></rich-text>
+		<view style="height: 600rpx" class="flex diygw-col-24 linechart-clz">
+      <ec-canvas id="mychart-dom-LD2410-line" canvas-id="mychart-move-line" ec="{{ ecline_move }}"></ec-canvas>
+		</view>
+		<view class="flex diygw-col-24">
+			<view class="diygw-pzx" style="border-bottom: 1px solid #eee"></view>
+		</view>
+		<rich-text wx:if="{{globalData.wifi_state_page==1}}" nodes="{{text2}}" class="diygw-col-24 text2-clz"></rich-text>
+		<view style="height: 600rpx" class="flex diygw-col-24 linechart1-clz">
+			<ec-canvas id="mychart-dom-LD2410-line" canvas-id="mychart-silent-line" ec="{{ ecline_silent }}"></ec-canvas>
+		</view>
+		<rich-text nodes="{{text1}}" class="diygw-col-24 text1-clz"></rich-text>
+		<view style="height: 600rpx" class="flex diygw-col-24">
+			<ec-canvas id="mychart-dom-sum-line" canvas-id="mychart-sum-line" ec="{{ ecline_sum }}"></ec-canvas>
+		</view>
+    <!--  <button bindtap="test_test2"   class="diygw-btn green     flex1 margin-xs  button-button-clz"> 测试按钮 </button> -->
+	</view>  
+  <view class="youcannotsee"> - </view> 
+</view>

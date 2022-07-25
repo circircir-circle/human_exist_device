@@ -1,0 +1,122 @@
+.text1-clz {
+	margin-left: 5px;
+	border: 1px solid #eee;
+	border-bottom-left-radius: 6px;
+	overflow: hidden;
+	width: calc(100% - 5px - 5px) !important;
+	border-top-left-radius: 6px;
+	margin-top: 5px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	margin-bottom: 5px;
+	text-align: center;
+	margin-right: 5px;
+}
+.text7-clz {
+	margin-left: 5px;
+	border-bottom-left-radius: 6px;
+	overflow: hidden;
+	width: calc(100% - 5px - 5px) !important;
+	border-top-left-radius: 6px;
+	margin-top: 5px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+.slider9-clz {
+	font-size: 14px;
+}
+.slider1-clz {
+	font-size: 14px;
+}
+.slider2-clz {
+	font-size: 14px;
+}
+.slider8-clz {
+	font-size: 14px;
+}
+.slider7-clz {
+	font-size: 14px;
+}
+.slider6-clz {
+	font-size: 14px;
+}
+.slider5-clz {
+	font-size: 14px;
+}
+.slider4-clz {
+	font-size: 14px;
+}
+.slider3-clz {
+	font-size: 14px;
+}
+.line-clz {
+	margin-left: 5px;
+	width: calc(100% - 5px - 5px) !important;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 5px;
+}
+.text-clz {
+	margin-left: 5px;
+	border-bottom-left-radius: 6px;
+	overflow: hidden;
+	width: calc(100% - 5px - 5px) !important;
+	border-top-left-radius: 6px;
+	margin-top: 5px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+.slider-clz {
+	font-size: 14px;
+}
+.slider17-clz {
+	font-size: 14px;
+}
+.slider16-clz {
+	font-size: 14px;
+}
+.slider15-clz {
+	font-size: 14px;
+}
+.slider14-clz {
+	font-size: 14px;
+}
+.slider13-clz {
+	font-size: 14px;
+}
+.slider12-clz {
+	font-size: 14px;
+}
+.slider11-clz {
+	font-size: 14px;
+}
+.slider10-clz {
+	font-size: 14px;
+}
+.button-clz {
+	flex-shrink: 0;
+	width: 150px !important;
+}
+.button-button-clz {
+	margin: 3px !important;
+}
+.button1-clz {
+	flex-shrink: 0;
+	width: 150px !important;
+}
+.button1-button-clz {
+	margin: 3px !important;
+}
+.container {
+	padding-left: 0px;
+	padding-right: 0px;
+
+	font-size: 12px;
+}
+.container {
+	padding-bottom: 80px;
+}

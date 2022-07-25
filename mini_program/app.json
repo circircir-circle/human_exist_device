@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/index",
+    "pages/index/monitor",
+    "pages/index/edit_param",
+    "pages/webview"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "小程序",
+    "navigationBarBackgroundColor": "#07c160"
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

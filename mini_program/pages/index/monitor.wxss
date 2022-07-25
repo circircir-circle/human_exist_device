@@ -1,0 +1,102 @@
+.text-clz {
+	margin-left: 5px;
+	border: 1px solid #eee;
+	border-bottom-left-radius: 6px;
+	overflow: hidden;
+	width: calc(100% - 5px - 5px) !important;
+	border-top-left-radius: 6px;
+	margin-top: 5px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	margin-bottom: 5px;
+	text-align: center;
+	margin-right: 5px;
+}
+.text7-clz {
+	margin-left: 5px;
+	border-bottom-left-radius: 6px;
+	overflow: hidden;
+	width: calc(100% - 5px - 5px) !important;
+	border-top-left-radius: 6px;
+	margin-top: 5px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+.linechart-clz {
+	margin-left: 5px;
+	border: 1px solid #eee;
+	border-bottom-left-radius: 6px;
+	overflow: hidden;
+	width: calc(100% - 5px - 5px) !important;
+	border-top-left-radius: 6px;
+	margin-top: 5px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+.text2-clz {
+	margin-left: 5px;
+	border-bottom-left-radius: 6px;
+	overflow: hidden;
+	width: calc(100% - 5px - 5px) !important;
+	border-top-left-radius: 6px;
+	margin-top: 5px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+.linechart1-clz {
+	margin-left: 5px;
+	border: 1px solid #eee;
+	border-bottom-left-radius: 6px;
+	overflow: hidden;
+	width: calc(100% - 5px - 5px) !important;
+	border-top-left-radius: 6px;
+	margin-top: 5px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+.text1-clz {
+	margin-left: 5px;
+	border-bottom-left-radius: 6px;
+	overflow: hidden;
+	width: calc(100% - 5px - 5px) !important;
+	border-top-left-radius: 6px;
+	margin-top: 5px;
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+.container {
+	padding-left: 0px;
+	padding-right: 0px;
+
+	font-size: 12px;
+}
+.container {
+	padding-bottom: 80px;
+}
+
+.youcannotsee{
+  color: rgba(238, 238, 238, 0);
+}
+
+#mychart-dom-LD2410-line {
+  width: 100%;
+  height: 100%;
+  margin: 0px 0px;
+  border: 1px solid rgba(153, 180, 180, 0.5);
+}
+#mychart-dom-sum-line {
+  width: 100%;
+  height: 100%;
+  margin: 3px 0px;
+  border: 1px solid rgba(153, 180, 180, 0.5);
+}
