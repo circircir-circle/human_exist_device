@@ -1,0 +1,2 @@
+# human_exist_device
+基于ESP32和LD2410的人体存在传感器小盒子
