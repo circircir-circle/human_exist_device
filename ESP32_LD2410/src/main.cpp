@@ -467,21 +467,17 @@ void loop()
   char msg[100];
   char title[100];
   delay(100); 
+  if ((WiFi.status() != WL_CONNECTED) || (mqttclient.loop() == false))
+  {
+    Serial.println("network have encounted critical errors");
+    esp_deep_sleep_start();
+  }
   if (resr_count_down < 0)
   {
     xTimerStop(xTimer_rest, 0);
     Serial.println("stop the timer to wait ble");
     Serial.println("esp32 will be restarted");
     esp_deep_sleep_start();
-  }
-  if ((WiFi.status() != WL_CONNECTED))
-  {
-    Serial.println("reconnect wifi");
-    WiFi.reconnect();
-    while (WiFi.status() != WL_CONNECTED)
-    {
-      delay(100);
-    }
   }
   while (1) 
   {
