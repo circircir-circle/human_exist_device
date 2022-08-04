@@ -55,6 +55,8 @@
 
 #define AP_SSID  "esp32"
 
+RTC_DATA_ATTR int bootCount = 0;
+
 const int led1 = 12;
 const int led2 = 13;
 const int rxpin = 1;
@@ -432,10 +434,12 @@ void setup()
 //  chipId = String((uint32_t)ESP.getEfuseMac(), HEX);
   chipId = uniq;
   chipId.toUpperCase();
-  //  chipid =ESP.getEfuseMac();
+  //  chipid =ESP.getEfuseMac();  
+  Serial.println("---------------> run V1.02 on 20220802 <-------------");
   Serial.printf("Chip id: %s\n", chipId.c_str());
   Serial.println(chipId);
 
+  ++bootCount;
   wakeup_reason = esp_sleep_get_wakeup_cause();
   switch(wakeup_reason)
   {
@@ -511,7 +515,7 @@ void loop()
   if ((mqtt_cnt++ > mqtt_period * 10) or (old_state != LD2410_result[0])) // mqtt_period * 10
   {
     mqtt_cnt = 0;
-    sprintf(msg, "{ \"human_exist\": %d, \"ldr_value\": %d}", LD2410_result[0], ldr_value);
+    sprintf(msg, "{ \"human_exist\": %d, \"ldr_value\": %d, \"boot_count\": %d}", LD2410_result[0], ldr_value, bootCount);
     sprintf(title, "homeassistant/sensor/ESP32_ID%s/state", chipId);
     mqttclient.publish(title, msg);
     Serial.println("push to mqtt");

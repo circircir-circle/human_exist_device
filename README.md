@@ -183,7 +183,7 @@ sensor:
 
 ### 其它应该说明的问题
 
-
+1. 编译时如果遇到找不到 esp-c3 board, 那么需要把board_file 文件夹中的 ```esp32-c3.json``` 放到 ```C:\Users\用户名\.platformio\platforms\espressif32@4.2.0\boards``` 文件夹中, 再重新编译就好了, 或者就是修改工程目录中的 ```platformio.ini``` 文件中 ```board``` 这一项, 改为自己的板卡ID.
 
 ## 版本说明
 
