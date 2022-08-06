@@ -435,7 +435,7 @@ void setup()
   chipId = uniq;
   chipId.toUpperCase();
   //  chipid =ESP.getEfuseMac();  
-  Serial.println("---------------> run V1.02 on 20220802 <-------------");
+  Serial.println("---------------> run V1.03 on 20220806 <-------------");
   Serial.printf("Chip id: %s\n", chipId.c_str());
   Serial.println(chipId);
 
@@ -471,10 +471,14 @@ void loop()
   char msg[100];
   char title[100];
   delay(100); 
-  if ((WiFi.status() != WL_CONNECTED) || (mqttclient.loop() == false))
-  {
-    Serial.println("network have encounted critical errors");
-    esp_deep_sleep_start();
+  // V1.0.3  加入条件判断: 只有当自动重启后, 或者蓝牙已关闭的情况, 才引入自动重启机制
+  if ((bootCount > 1) || (resr_count_down <= 0)) {
+    // V1.0.2  发现设备有几率失联的问题, 因此当检测到断网或者连不上mqtt时, 自动重启
+    if ((WiFi.status() != WL_CONNECTED) || (mqttclient.loop() == false))
+    {
+      Serial.println("network have encounted critical errors");
+      esp_deep_sleep_start();
+    }
   }
   if (resr_count_down < 0)
   {
