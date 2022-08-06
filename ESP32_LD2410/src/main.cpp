@@ -118,6 +118,9 @@ String mqtt_pwd;
 // LD2410 通信buf
 int ldr_value = 0;
 char read_buf[100];
+char open_engineering_pattern_cmd[12] = {0xFD, 0xFC, 0xFB, 0xFA, 0x02, 0x00, 0x62, 0x00, 0x04, 0x03, 0x02, 0x01};
+char config_LD2410_cmd[14] = {0xFD, 0xFC, 0xFB, 0xFA, 0x04, 0x00, 0xFF, 0x00, 0x61, 0x00, 0x04, 0x03, 0x02, 0x01};
+char unconfig_LD2410_cmd[14] = {0xFD, 0xFC, 0xFB, 0xFA, 0x02, 0x00, 0xFE, 0x00, 0x04, 0x03, 0x02, 0x01};
 const int t_s = 19;
 const int s_s = 30;
 const int org_state_p = 8;
@@ -159,6 +162,7 @@ void updata_data_from_nvs();
 void updata_BLE_Net_State();
 void proc_LD2410_data();
 void WiFiEvent(WiFiEvent_t event);
+void open_LD2410_engineering_mode();
 
 // service 的回调函数, 接入将提示, 断开就重启
 class MyServerCallbacks : public BLEServerCallbacks
@@ -350,7 +354,6 @@ class MyCallbacksLD2410_Th : public BLECharacteristicCallbacks
       preferences.putBytes("LD2410_th", LD2410_th, 18);
       Serial.println();
       Serial.println("*********");
-
     }
   }
 };
@@ -425,7 +428,7 @@ void setup()
   preferences.begin("sp_data", false);
   Serial.begin(115200);  
   WiFi.onEvent(WiFiEvent);
-  setCpuFrequencyMhz(80);
+  setCpuFrequencyMhz(160);
   esp_sleep_enable_timer_wakeup(100 * 1000);
   WiFi.setSleep(WIFI_PS_MIN_MODEM);
   Serial1.begin(256000, SERIAL_8N1, rxpin, txpin);
@@ -435,7 +438,7 @@ void setup()
   chipId = uniq;
   chipId.toUpperCase();
   //  chipid =ESP.getEfuseMac();  
-  Serial.println("---------------> run V1.03 on 20220806 <-------------");
+  Serial.println("---------------> run V1.1.0 on 20220806 <-------------");
   Serial.printf("Chip id: %s\n", chipId.c_str());
   Serial.println(chipId);
 
@@ -464,6 +467,8 @@ void setup()
   sta = StartWifiMqtt();
 
   delay(1000);
+  // V1.1.0 新版LD2410需要手动打开工程模式, 才能得到每个距离门上的能量值
+  open_LD2410_engineering_mode();
 }
 
 void loop()
@@ -490,10 +495,23 @@ void loop()
   while (1) 
   {
     Serial1.read(read_buf, 45);
+//    Serial.printf("read_buf: ");
+//    for (int i = 0; i < 45; i++)
+//    {
+//      Serial.printf("0x%02x ", read_buf[i]);
+//    }
+//    Serial.println(" "); 
     if ((read_buf[0] == 0xF4) && (read_buf[1] == 0xF3) && (read_buf[2] == 0xF2) && (read_buf[3] == 0xF1))
-    {
+    {      
+      // 如果工程模式打开失败, 收到的还是正常模式的数据, 则再次尝试打开工程模式
+      if ((read_buf[19] == 0xF8) && (read_buf[20] == 0xF7) && (read_buf[21] == 0xF6) && (read_buf[22] == 0xF5))
+      {
+        open_LD2410_engineering_mode();
+      }
+//      Serial.println("it's valid frame"); 
       break;
     }
+//    Serial.println("warning: it's unvalid frame, read again"); 
   }
   proc_LD2410_data();
   // Reading potentiometer value
@@ -961,4 +979,15 @@ void WiFiEvent(WiFiEvent_t event)
         default:
             break;
     }
+}
+
+void open_LD2410_engineering_mode() 
+{
+  // 开启LD2410的工程模式
+  Serial1.write(config_LD2410_cmd, sizeof(config_LD2410_cmd));
+  delay(100);
+  Serial1.write(open_engineering_pattern_cmd, sizeof(open_engineering_pattern_cmd));
+  delay(100);
+  Serial1.write(unconfig_LD2410_cmd, sizeof(unconfig_LD2410_cmd));  
+  delay(100);
 }
