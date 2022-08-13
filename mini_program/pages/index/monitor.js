@@ -336,8 +336,6 @@ Page({
         return SumLineChart;
       }
     },
-		//用户全局信息
-		userInfo: {},
 		text: `<p style="text-align: center;"><span style="color: #e03e2d; font-size: 20px;">——— 第二步: 观察传感器状态 ———</span></p>`,
 		text7: `<p><span style="font-size: 18px;">&nbsp; 运动状态</span></p>`,
 		text2: `<p><span style="font-size: 18px;">&nbsp; 静止状态</span></p>`,
@@ -500,7 +498,28 @@ Page({
   move_line_touch_start: function () {
   },
   move_line_touch_end: function () {
-  }
+  },
+  navigateTo_peiwang: function(e)
+  {
+    console.log("已经点击" + e)
+    wx.redirectTo({
+      url: '../index',
+    })
+  },
+  navigateTo_jiankong: function(e)
+  {
+    console.log("已经点击" + e)
+    wx.redirectTo({
+      url: 'monitor',
+    })
+  },
+  navigateTo_shezhi: function(e)
+  {
+    console.log("已经点击" + e)
+    wx.redirectTo({
+      url: 'edit_param',
+    })
+  },
 });
 
 

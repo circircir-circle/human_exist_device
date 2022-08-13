@@ -50,7 +50,7 @@
   <rich-text wx:else="{{wifi_state_page==1}}" nodes="{{text9}}" class="   diygw-col-24  text9-clz "></rich-text>   
   <rich-text wx:if="{{mqtt_state_page==1}}" nodes="{{text8}}" class="   diygw-col-24  text8-clz "></rich-text>   
   <rich-text wx:else="{{mqtt_state_page==1}}" nodes="{{text10}}" class="   diygw-col-24  text10-clz "></rich-text> 
-  <view >蓝牙已接收  {{ble_recvbuf_page}}</view>
+  <view > .  {{ble_recvbuf_page}}</view>
   <rich-text nodes="{{text11}}" class="   diygw-col-24  text10-clz "></rich-text> 
   <rich-text nodes="{{text11}}" class="   diygw-col-24  text10-clz "></rich-text> 
   <rich-text nodes="{{text11}}" class="   diygw-col-24  text10-clz "></rich-text> 
@@ -61,7 +61,7 @@
  </view>  
  <view class="flex diygw-col-24  diygw-bottom"> 
   <view class="diygw-grid diygw-actions"> 
-   <button catchtap="navigateTo" data-type="page" data-url="/pages/index" class="diygw-action      " > 
+   <button catchtap="navigateTo_peiwang" data-type="page" data-url="/pages/index" class="diygw-action      " > 
     <view class="diygw-grid-inner "> 
      <view class="diygw-grid-icon diygw-avatar  diy-icon-subscription" > 
      </view> 
@@ -69,7 +69,7 @@
       配网
      </view> 
     </view> </button> 
-   <button catchtap="navigateTo" data-type="page" data-url="/pages/index/monitor" class="diygw-action      " > 
+   <button catchtap="navigateTo_jiankong" data-type="page" data-url="/pages/index/monitor" class="diygw-action      " > 
     <view class="diygw-grid-inner "> 
      <view class="diygw-grid-icon diygw-avatar  diy-icon-rank" > 
      </view> 
@@ -77,7 +77,7 @@
       监控
      </view> 
     </view> </button> 
-   <button catchtap="navigateTo" data-type="page" data-url="/pages/index/edit_param" class="diygw-action      " > 
+   <button catchtap="navigateTo_shezhi" data-type="page" data-url="/pages/index/edit_param" class="diygw-action      " > 
     <view class="diygw-grid-inner "> 
      <view class="diygw-grid-icon diygw-avatar  diy-icon-all" > 
      </view> 

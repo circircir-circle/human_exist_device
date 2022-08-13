@@ -2,19 +2,19 @@
 	<rich-text nodes="{{text1}}" class="diygw-col-24 text1-clz diygw-text-lg"></rich-text>
 	<view class="flex diygw-col-24 diygw-bottom">
 		<view class="diygw-grid diygw-actions">
-			<button catchtap="navigateTo" data-type="page" data-url="/pages/index" class="diygw-action">
+			<button catchtap="navigateTo_peiwang" data-type="page" data-url="/pages/index" class="diygw-action">
 				<view class="diygw-grid-inner">
 					<view class="diygw-grid-icon diygw-avatar diy-icon-subscription"> </view>
 					<view class="diygw-grid-title"> 配网 </view>
 				</view>
 			</button>
-			<button catchtap="navigateTo" data-type="page" data-url="/pages/index/monitor" class="diygw-action">
+			<button catchtap="navigateTo_jiankong" data-type="page" data-url="/pages/index/monitor" class="diygw-action">
 				<view class="diygw-grid-inner">
 					<view class="diygw-grid-icon diygw-avatar diy-icon-rank"> </view>
 					<view class="diygw-grid-title"> 监控 </view>
 				</view>
 			</button>
-			<button catchtap="navigateTo" data-type="page" data-url="/pages/index/edit_param" class="diygw-action">
+			<button catchtap="navigateTo_shezhi" data-type="page" data-url="/pages/index/edit_param" class="diygw-action">
 				<view class="diygw-grid-inner">
 					<view class="diygw-grid-icon diygw-avatar diy-icon-all"> </view>
 					<view class="diygw-grid-title"> 设置 </view>

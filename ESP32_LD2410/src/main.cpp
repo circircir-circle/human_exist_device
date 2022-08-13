@@ -29,6 +29,7 @@
 #include <WiFi.h>
 #include <Preferences.h>
 #include <esp32-hal-cpu.h>
+#include <esp_task_wdt.h>
 //#include <ESPmDNS.h>
 //#include <WebServer.h>
 //#include <WiFiMulti.h>
@@ -54,6 +55,8 @@
 #define CHARACTERISTIC_UUID_LD2410_Result "c015a05d-9617-455a-97ad-4e44ea286cd2"
 
 #define AP_SSID  "esp32"
+
+#define WDT_TIMEOUT 10
 
 RTC_DATA_ATTR int bootCount = 0;
 
@@ -114,6 +117,7 @@ String mqtt_account;
 String mqtt_pwd;
 
 // mqtt 通信 buf
+int ladar_status = 0;
 
 // LD2410 通信buf
 int ldr_value = 0;
@@ -415,6 +419,7 @@ void setup()
 {
   int p = 0;
   int sta = 0;
+  // 设定看门狗的时间为15s钟, 注意超时, 使用 esp_task_wdt_reset(); 函数喂狗    
   String wifi_ssid = "";
   String wifi_pwd = "";
   String mqtt_site = "";
@@ -424,11 +429,17 @@ void setup()
   WiFi.macAddress(mac);
   String uniq =  String(mac[0],HEX) +String(mac[1],HEX) +String(mac[2],HEX) +String(mac[3],HEX) + String(mac[4],HEX) + String(mac[5],HEX);
   //!--------- 以下为初始化部分
-  
+
+  //设置看门狗被触发时, 执行 panic handler 自动重启 
+  // (如果不设置这一条, 默认为false, 那么当看门狗被触发时, 只会停止loop函数, 而不会重启esp32
+  // 导致esp32停止运行, 失去了看门狗的意义)
+  esp_task_wdt_init(WDT_TIMEOUT, true); //enable panic so ESP32 restarts
+//  esp_task_wdt_add(NULL); //add current thread to WDT watch
+
   preferences.begin("sp_data", false);
   Serial.begin(115200);  
   WiFi.onEvent(WiFiEvent);
-  setCpuFrequencyMhz(160);
+  setCpuFrequencyMhz(80);
   esp_sleep_enable_timer_wakeup(100 * 1000);
   WiFi.setSleep(WIFI_PS_MIN_MODEM);
   Serial1.begin(256000, SERIAL_8N1, rxpin, txpin);
@@ -438,7 +449,7 @@ void setup()
   chipId = uniq;
   chipId.toUpperCase();
   //  chipid =ESP.getEfuseMac();  
-  Serial.println("---------------> run V1.1.0 on 20220806 <-------------");
+  Serial.println("---------------> run V1.2.0 on 20220814 <-------------");
   Serial.printf("Chip id: %s\n", chipId.c_str());
   Serial.println(chipId);
 
@@ -461,24 +472,27 @@ void setup()
     xTimerStart(xTimer_rest, 0 );  //开启定时器
     Serial.println("start a timer...");
   } 
-
   //!------- 尝试从 nvs 区域读取wifi信息, 并连接wifi
   Serial.println("try to connect to wifi...");
   sta = StartWifiMqtt();
-
   delay(1000);
   // V1.1.0 新版LD2410需要手动打开工程模式, 才能得到每个距离门上的能量值
   open_LD2410_engineering_mode();
 }
+
+int last = millis();
+int i = 0;
 
 void loop()
 {
   char msg[100];
   char title[100];
   delay(100); 
+  int invalid_frames = 0;
   // V1.0.3  加入条件判断: 只有当自动重启后, 或者蓝牙已关闭的情况, 才引入自动重启机制
   if ((bootCount > 1) || (resr_count_down <= 0)) {
     // V1.0.2  发现设备有几率失联的问题, 因此当检测到断网或者连不上mqtt时, 自动重启
+//    Serial.println("check network");
     if ((WiFi.status() != WL_CONNECTED) || (mqttclient.loop() == false))
     {
       Serial.println("network have encounted critical errors");
@@ -492,6 +506,7 @@ void loop()
     Serial.println("esp32 will be restarted");
     esp_deep_sleep_start();
   }
+  invalid_frames = 0;
   while (1) 
   {
     Serial1.read(read_buf, 45);
@@ -509,6 +524,15 @@ void loop()
         open_LD2410_engineering_mode();
       }
 //      Serial.println("it's valid frame"); 
+      ladar_status = 1;
+      break;
+    }
+    //V1.2.0 此处加入延时, 防止长时间读不到雷达的数据, 导致触发看门狗
+    delay(10);
+    //V1.2.0 如果连续读100次都读不到雷达的数据, 则跳出循环, 并且在mqtt中报告雷达工作不正常
+    if (invalid_frames++ > 100)
+    {
+      ladar_status = 0;
       break;
     }
 //    Serial.println("warning: it's unvalid frame, read again"); 
@@ -530,14 +554,15 @@ void loop()
   if (serial_cnt++ > serial_period * 10)
   {
     serial_cnt = 0;
-    Serial.printf("ldr_value = %d, sb_move = %d, sb_not_move = %d, sb_silent = %d, sb_not_silent =  = %d, result = %d\n\r", ldr_value, sb_move, sb_not_move, sb_silent, sb_not_silent, LD2410_result[0]);
-    Serial.printf("cpu freq = %d MHz\n\r", getCpuFrequencyMhz());
+    Serial.printf("ldr_value = %d, sb_move = %d, sb_not_move = %d, sb_silent = %d, sb_not_silent = %d, result = %d\n\r", ldr_value, sb_move, sb_not_move, sb_silent, sb_not_silent, LD2410_result[0]);
+//    Serial.printf("cpu freq = %d MHz\n\r", getCpuFrequencyMhz());
   }
   
   if ((mqtt_cnt++ > mqtt_period * 10) or (old_state != LD2410_result[0])) // mqtt_period * 10
   {
     mqtt_cnt = 0;
-    sprintf(msg, "{ \"human_exist\": %d, \"ldr_value\": %d, \"boot_count\": %d}", LD2410_result[0], ldr_value, bootCount);
+    sprintf(msg, "{ \"human_exist\": %d, \"ldr_value\": %d, \"boot_count\": %d, \"ladar\": %d}", LD2410_result[0], ldr_value, bootCount, ladar_status);
+    Serial.printf("%s\n\r", msg);
     sprintf(title, "homeassistant/sensor/ESP32_ID%s/state", chipId);
     mqttclient.publish(title, msg);
     Serial.println("push to mqtt");
@@ -634,7 +659,7 @@ int StartWifiMqtt()
   Serial.printf("%d: Connected to the WiFi network\n\r", i);
   mqttclient.disconnect();
   mqttclient.setServer(mqtt_site.c_str(), mqtt_port);
-  mqttclient.setKeepAlive(mqtt_period * 2);
+//  mqttclient.setKeepAlive(mqtt_period * 2);
   mqttclient.setCallback(MqttRecvCallback);
   i= 0;
   while (!mqttclient.connected())
@@ -984,6 +1009,7 @@ void WiFiEvent(WiFiEvent_t event)
 void open_LD2410_engineering_mode() 
 {
   // 开启LD2410的工程模式
+  Serial.println("try to open LD2410 engineering mode");
   Serial1.write(config_LD2410_cmd, sizeof(config_LD2410_cmd));
   delay(100);
   Serial1.write(open_engineering_pattern_cmd, sizeof(open_engineering_pattern_cmd));

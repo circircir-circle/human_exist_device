@@ -1,10 +1,6 @@
-//create by: 邓志锋 <280160522@qq.com> <https://www.diygw.com> DIYGW可视化设计一键生成源码
-
 const app = getApp()
 Page({
 	data: {
-		//用户全局信息
-		userInfo: {},
 		text1: `<p style="text-align: center;"><span style="color: #e03e2d; font-size: 20px;">——— 第三步: 设置传感器参数 ———</span></p>`,
 		text7: `<p><span style="font-size: 18px;">&nbsp; 设置持续次数参数, 传感器1s中检测10次, 当连续检测到该状态这么多次时, 就给出相应的判定结果</span></p>`,
 		sb_move_times: 10,
@@ -78,7 +74,28 @@ Page({
         console.error('writeBLECharacteristicValue', res)
       }
     })
-  }
+  },
+  navigateTo_peiwang: function(e)
+  {
+    console.log("已经点击" + e)
+    wx.redirectTo({
+      url: '../index',
+    })
+  },
+  navigateTo_jiankong: function(e)
+  {
+    console.log("已经点击" + e)
+    wx.redirectTo({
+      url: 'monitor',
+    })
+  },
+  navigateTo_shezhi: function(e)
+  {
+    console.log("已经点击" + e)
+    wx.redirectTo({
+      url: 'edit_param',
+    })
+  },
 
 
 
