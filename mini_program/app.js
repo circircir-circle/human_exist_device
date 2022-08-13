@@ -1,7 +1,5 @@
-require('./page-extend');
 App({
 	globalData: {
-		userInfo: null,
 		tabBar: [],
 		homePage: '/pages/index',
 		pages: ['/pages/index', '/pages/index/monitor', '/pages/index/edit_param'],

@@ -32,8 +32,6 @@ var t;
 Page({
   
 	data: {
-		//用户全局信息
-		userInfo: {},
 		text: `<p style="text-align: center;"><span style="color: #e03e2d; font-size: 20px;">——— 第一步: 填写配网信息 ———</span></p>`,
 		text1: `<p><span style="font-size: 16px;">&nbsp; WiFi名称</span></p>`,
 		input5: '',
@@ -438,6 +436,28 @@ Page({
     this.setData({
       mqtt_pwd: e.detail.value
     })
-  }  
+  },
+  
+  navigateTo_peiwang: function(e)
+  {
+    console.log("已经点击" + e)
+    wx.redirectTo({
+      url: 'index',
+    })
+  },
+  navigateTo_jiankong: function(e)
+  {
+    console.log("已经点击" + e)
+    wx.redirectTo({
+      url: 'index/monitor',
+    })
+  },
+  navigateTo_shezhi: function(e)
+  {
+    console.log("已经点击" + e)
+    wx.redirectTo({
+      url: 'index/edit_param',
+    })
+  },
 })
 
