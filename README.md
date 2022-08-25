@@ -219,5 +219,5 @@ sensor:
 ## 附件
 
 ### 微信小程序
-![人体存在传感器小程序二维码](https://github.com/circircir-circle/human_exist_device/blob/main/assets/Snipaste_2022-07-28_09-09-02.png)
+![人体存在传感器小程序二维码](https://github.com/circircir-circle/human_exist_device/blob/main/assets/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%A0%81.png)
 
